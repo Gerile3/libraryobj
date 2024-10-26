@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Library App</title>
+</head>
+<body>
+    <header>
+        <p>Welcome to your Library!</p>
+        <p>You have ${} books in your library right now.</p>
+    </header>
+
+    <section>
+        <div class="book-container">
+            <div class="book">
+                <p class="title"></p>
+                <p class="author"></p>
+                <p class="pages"></p>
+                <p class="read"></p>
+                <p class="rate"></p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <form action="POST">
+            <input type="text" class="title">
+            <input type="text" class="author">
+            <input type="text" class="pages">
+            <input type="text" class="read">
+            <input type="text" class="rate">
+        </form>
+    </section>
+
+    <footer>&copy; 2024 Gerile3. All rights reserved.</footer>
+    <script src="./script.js"></script>
+</body>
+</html>
