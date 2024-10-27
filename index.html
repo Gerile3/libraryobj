@@ -8,30 +8,45 @@
 </head>
 <body>
     <header>
-        <p>Welcome to your Library!</p>
-        <p>You have ${} books in your library right now.</p>
+        <h1>Welcome to your Library!</h1>
+        <p>You have <span id="book-number">1</span> book(s) in your library right now.</p>
+        <div class="menu">
+            <button class="show-book">Show My Books</button>
+            <button class="add-new">Add New Books</button>
+        </div>
     </header>
 
-    <section>
-        <div class="book-container">
-            <div class="book">
-                <p class="title"></p>
-                <p class="author"></p>
-                <p class="pages"></p>
-                <p class="read"></p>
-                <p class="rate"></p>
-            </div>
-        </div>
+    <section class="add-book-container">
+        <form action="POST">
+            <fieldset>
+                <legend>Add New Books</legend>
+                <label for="title">Book Title: </label><input required type="text" class="title-input" name="title" maxlength="30">
+                <label for="author">Author: </label><input required type="text" class="author-input" name="author" maxlength="30">
+                <label for="pages">Total Pages: </label><input required min="1" type="number" class="pages-input" name="pages" max="9999">
+                <label for="read">Read? </label><input required type="checkbox" class="read-input" name="read">
+                <legend>How would you rate the book?</legend>
+                <div class="rate-holder">
+                    <label for="rate"><input type="radio" name="rate" value="1" class="rate-input"/>★</label>
+                    <label for="rate"><input type="radio" name="rate" value="2" class="rate-input"/>★★</label>
+                    <label for="rate"><input type="radio" name="rate" value="3" class="rate-input"/>★★★</label>
+                    <label for="rate"><input type="radio" name="rate" value="4" class="rate-input"/>★★★★</label>
+                    <label for="rate"><input type="radio" name="rate" value="5" class="rate-input"/>★★★★★</label>
+                </div>
+                <input type="submit" class="add-book" value="Add Book To Library">
+            </fieldset>
+        </form>
     </section>
 
-    <section>
-        <form action="POST">
-            <input type="text" class="title">
-            <input type="text" class="author">
-            <input type="text" class="pages">
-            <input type="text" class="read">
-            <input type="text" class="rate">
-        </form>
+    <h2>My Books</h2>
+    <section class="book-showcase">
+        <div class="book">
+            <p class="title">Example Book</p>
+            <p class="author">Example Author</p>
+            <p class="pages">100<span> Pages</span></p>
+            <p class="read">Read</p>
+            <p class="rate">★★★★★</p>
+            <button class="delete-book">Delete From Library</button>
+        </div>
     </section>
 
     <footer>&copy; 2024 Gerile3. All rights reserved.</footer>
