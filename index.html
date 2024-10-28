@@ -9,15 +9,15 @@
 <body>
     <header>
         <h1>Welcome to your Library!</h1>
-        <p>You have <span id="book-number">1</span> book(s) in your library right now.</p>
+        <p>You have <span id="book-number">0</span> book(s) in your library right now.</p>
         <div class="menu">
             <button class="show-book">Show My Books</button>
-            <button class="add-new">Add New Books</button>
+            <button class="add-new">Add New Book</button>
         </div>
     </header>
 
-    <section class="add-book-container">
-        <form action="POST">
+    <section class="add-book-container hidden">
+        <form id="form-id">
             <fieldset>
                 <legend>Add New Books</legend>
                 <label for="title">Book Title: </label><input required type="text" class="title-input" name="title" maxlength="30">
@@ -38,7 +38,7 @@
     </section>
 
     <h2>My Books</h2>
-    <section class="book-showcase">
+    <section class="book-showcase hidden">
         <div class="book">
             <p class="title">Example Book</p>
             <p class="author">Example Author</p>
