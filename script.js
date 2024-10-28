@@ -1,10 +1,12 @@
 const addNewBookButton = document.querySelector(".add-book");
 const showBooksButton = document.querySelector(".show-book");
-const deleteBooksButton = document.querySelector(".delete-book")
+const bookShowcase = document.querySelector(".book-showcase");
+const addButtonDisplay = document.querySelector(".add-new");
+const addBookContainer = document.querySelector(".add-book-container");
+const totalBooks = document.getElementById("book-number");
 const libraryDatabase = [];
 
-
-function Book(name, author, pages, read, rate){
+function Book(name, author, pages, read, rate) {
     this.name = name;
     this.author = author;
     this.pages = pages;
@@ -12,21 +14,109 @@ function Book(name, author, pages, read, rate){
     this.rate = rate;
 }
 
-function addBookToLibrary(name, author, pages, read, rate){
-    const newBook = new Book(name, author, pages, read, rate)
-    libraryDatabase.push(newBook)
+function addBookToLibrary() {
+    const form = document.getElementById('form-id');
+    const formData = new FormData(form);
+
+    const name = formData.get('title');
+    const author = formData.get('author');
+    const pages = parseInt(formData.get('pages'), 10);
+    const read = formData.get('read') === "on";
+    const rate = parseInt(formData.get('rate'), 10);
+
+    const newBook = new Book(name, author, pages, read, rate);
+    libraryDatabase.push(newBook);
+
+    totalBooks.textContent = libraryDatabase.length;
+    displayLibrary();
+    form.reset();
 }
 
-function displayLibrary(){
-    const printInfo = libraryDatabase.map((item)=>{
-        return  item.name + ", " + item.author + ", " + item.pages + " pages, " + 
-        (item.read ? "read, " : "not read yet, ") + item.rate + " stars";
-    })
+function displayLibrary() {
+    bookShowcase.innerHTML = "";
 
-    return printInfo.join("\n")
+    libraryDatabase.forEach((item) => {
+        const bookDiv = document.createElement("div");
+        bookDiv.classList.add("book");
+
+        // Title
+        const titleElement = document.createElement("p");
+        titleElement.classList.add("title");
+        titleElement.textContent = item.name;
+        bookDiv.appendChild(titleElement);
+
+        // Author
+        const authorElement = document.createElement("p");
+        authorElement.classList.add("author");
+        authorElement.textContent = item.author;
+        bookDiv.appendChild(authorElement);
+
+        // Pages
+        const pagesElement = document.createElement("p");
+        pagesElement.classList.add("pages");
+        pagesElement.textContent = item.pages;
+        const pagesSpan = document.createElement("span");
+        pagesSpan.textContent = " Pages";
+        pagesElement.appendChild(pagesSpan);
+        bookDiv.appendChild(pagesElement);
+
+        // Read status
+        const readElement = document.createElement("p");
+        readElement.classList.add("read");
+        readElement.classList.add(item.read ? "read" : "not-read");
+        readElement.textContent = item.read ? "Read" : "Not Read";
+        bookDiv.appendChild(readElement);
+
+        // Rating
+        const rateElement = document.createElement("p");
+        rateElement.classList.add("rate");
+        rateElement.textContent = "★".repeat(item.rate);
+        bookDiv.appendChild(rateElement);
+
+        // Delete Button
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-book");
+        deleteButton.textContent = "Delete From Library";
+        bookDiv.appendChild(deleteButton);
+
+        bookShowcase.appendChild(bookDiv)
+    });
 }
 
-addBookToLibrary("Osman", "Ben", 100, true, 5);
-addBookToLibrary("Another Book", "Another Author", 200, false, 4);
+addNewBookButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    addBookToLibrary();
+})
 
-console.log(displayLibrary())
+showBooksButton.addEventListener("click", () => {
+    bookShowcase.classList.toggle("hidden");
+    showBooksButton.textContent = bookShowcase.classList.contains("hidden")
+        ? "Show My Books"
+        : "Hide My Books"
+
+    if (!bookShowcase.classList.contains("hidden")) {
+        displayLibrary();
+    }
+})
+
+addButtonDisplay.addEventListener("click", () => {
+    addBookContainer.classList.toggle("hidden");
+    addButtonDisplay.textContent = addBookContainer.classList.contains("hidden")
+        ? "Add New Book"
+        : "Hide"
+})
+
+bookShowcase.addEventListener("click", (event) => {
+    if (event.target.classList.contains("delete-book")) {
+        const bookDiv = event.target.closest(".book");
+        const bookTitle = bookDiv.querySelector(".title").textContent;
+
+        const bookIndex = libraryDatabase.findIndex(book => book.name === bookTitle);
+        if (bookIndex > -1) {
+            libraryDatabase.splice(bookIndex, 1);
+        }
+
+        bookDiv.remove();
+        totalBooks.textContent = libraryDatabase.length;
+    }
+})
