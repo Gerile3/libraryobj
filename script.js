@@ -4,7 +4,29 @@ const bookShowcase = document.querySelector(".book-showcase");
 const addButtonDisplay = document.querySelector(".add-new");
 const addBookContainer = document.querySelector(".add-book-container");
 const totalBooks = document.getElementById("book-number");
-const libraryDatabase = [];
+const libraryDatabase = [
+    {
+        name: "The Great Gatsby",
+        author: "F. Scott Fitzgerald",
+        pages: 180,
+        read: true,
+        rate: 4
+    },
+    {
+        name: "To Kill a Mockingbird",
+        author: "Harper Lee",
+        pages: 281,
+        read: true,
+        rate: 5
+    },
+    {
+        name: "1984",
+        author: "George Orwell",
+        pages: 328,
+        read: false,
+        rate: 3
+    }
+]
 
 function Book(name, author, pages, read, rate) {
     this.name = name;
@@ -119,4 +141,10 @@ bookShowcase.addEventListener("click", (event) => {
         bookDiv.remove();
         totalBooks.textContent = libraryDatabase.length;
     }
+})
+
+
+window.addEventListener("load", () => {
+    displayLibrary()
+    totalBooks.textContent = libraryDatabase.length;
 })
