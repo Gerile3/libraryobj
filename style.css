@@ -114,3 +114,7 @@ footer{
 .not-read{
     color:#800;
 }
+
+.hidden{
+    display: none;
+}
